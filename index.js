@@ -12,6 +12,9 @@ app.get("/", (req, res) => {
 app.get("/web", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
+//Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 //Server
 app.listen(PORT, () => { console.log("Running......."); });
