@@ -1,8 +1,8 @@
 const express = require("express");
 const path = require("path");
-
+const members = require("./Members");
 const app = express();
-
+const moment = require("moment");
 const PORT = process.env.PORT || 5000;
 //Route
 app.get("/", (req, res) => {
@@ -15,33 +15,17 @@ app.get("/web", (req, res) => {
 //Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Json
-
-const members = [
-    {
-        id: 1,
-        name: "Debadrita Ghosh",
-        email: "debadrita.ghosh2010@gmail.com"
-    },
-    {
-        id: 2,
-        name: "Paushali Majumder",
-        email: "paushali@gmail.com"
-    },
-    {
-        id: 3,
-        name: "Sourav Saha",
-        email: "sourav@gmail.com"
-    },
-    {
-        id: 4,
-        name: "Shreya Ghosh",
-        email: "shreya@gmail.com"
-    }
-]
+//Middleware
+//// Creating middleWare
+const logger = (req, res, next) => {
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}: ${moment().format()}`);
+    next();
+}
+////Init Middleware
+app.use(logger);
 
 
-//rendering json
+//rendering json (GET all members)
 app.get("/api/members", (req, res) => {
     res.json(members);
 });
