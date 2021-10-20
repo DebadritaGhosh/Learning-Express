@@ -25,9 +25,10 @@ app.get("/about", (req, res) => {
 });
 
 //Route + Download File
+
 app.get("/download", (req, res) => {
     //Downloading about.html file
-    res.download(path.resolve(__dirname) + "/about.html");
+    res.download(path.resolve(__dirname) + "/views/about.ejs");
 });
 
 
